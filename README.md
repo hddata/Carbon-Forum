@@ -1,19 +1,15 @@
-# Carbon-Forum    [![Build Status](https://travis-ci.org/lincanbin/Carbon-Forum.svg?branch=develop)](https://travis-ci.org/lincanbin/Carbon-Forum)
+# Tiekaa    [![Build Status]]
 
 A high performance open-source forum software written in PHP.
 
 
 
-## Related Projects
-
-* [API Documentation](https://github.com/lincanbin/Carbon-Forum-API-Documentation)
-* [Android Client for Carbon Forum](https://github.com/lincanbin/Android-Carbon-Forum)
 
 ## Demo/Official Website
 
-* [项目简体中文官网: www.94cb.com](http://www.94cb.com/)
-* [Project's English Official Website: en.94cb.com](http://en.94cb.com/)
-* [專案繁體中文官網: tw.94cb.com](http://tw.94cb.com/)
+* [项目简体中文官网: www.tiekaa.com](http://www.tiekaa.com/)
+* [Project's English Official Website: ]
+
 
 ## Requirements
 
@@ -47,25 +43,7 @@ A high performance open-source forum software written in PHP.
 * Perfect draft saving mechanism. 
 * The modern Notification Center (currently supported and @ replies).
 
-## Donate for Carbon Forum
 
-* [Donation list](http://www.94cb.com/t/2465)
-
-* Alipay: 
-
-![Alipay](https://www.94cb.com/upload/donate_small.png)
-
-* Wechat: 
-
-![Wechat](https://www.94cb.com/upload/donate_weixin_small.png)
-
-* Paypal: 
-
-  https://www.paypal.me/lincanbin
-
-## Contributors
-
-[Show all](https://github.com/lincanbin/Carbon-Forum/graphs/contributors)
 
 
 
