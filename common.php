@@ -77,6 +77,15 @@ if (!$Config) {
 // 热门标签列表
 $HotTagsArray = json_decode($Config['CacheHotTags'], true);
 $HotTagsArray = $HotTagsArray ? $HotTagsArray : array();
+// 用户关注的标签
+
+$CurrentUserID             = intval(GetCookie('UserID'));
+//echo "string:***************".$Prefix;
+$Favoritesresult            = $DB->column("select title from `" . $Prefix . "favorites` where Type = 2 AND UserId = " . $CurrentUserID );
+//echo "string:".$Favoritesresult;
+
+
+
 
 $PHPSelf     = addslashes(htmlspecialchars($_SERVER['PHP_SELF'] ? $_SERVER['PHP_SELF'] : $_SERVER['SCRIPT_NAME']));
 $UrlPath = '';

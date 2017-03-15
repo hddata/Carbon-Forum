@@ -5,5 +5,6 @@ if (empty($Lang) || !is_array($Lang))
 
 $Lang = array_merge($Lang, array(
 	'Last_Reply_From' => '最后回复来自',
-	'My_Following_Tags' => '我关注的话题'
+//	'My_Following_Tags' => '我关注的话题'
+	'My_Following_Tags' => '我的贴咖'
 	));

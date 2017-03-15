@@ -11,7 +11,7 @@ if ($TagName)
 		)
 	);
 if (empty($TagInfo) || $TagInfo['TotalPosts'] == 0 || ($TagInfo['IsEnabled'] == 0 && $CurUserRole < 3))
-	AlertMsg('404 Not Found', '404 Not Found', 404);
+	AlertMsg('此贴咖尚未创建！！！', '此贴咖尚未创建！！！', 200);
 $TotalPage = ceil($TagInfo['TotalPosts'] / $Config['TopicsPerPage']);
 if ($Page < 0 || $Page == 1) 
 	Redirect('tag/' . $TagInfo['Name']);

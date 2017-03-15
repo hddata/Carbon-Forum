@@ -110,6 +110,8 @@ loadScript("<?php echo $Config['WebsitePath']; ?>/static/js/jquery.async.uploade
 if($CurUserRole >= 4){
 ?>
 				<a href="###" onclick="javascript:Manage(<?php echo $TagInfo['ID']; ?>, 5, 'SwitchStatus', true, this);"><?php echo $TagInfo['IsEnabled']?$Lang['Disable_Tag']:$Lang['Enable_Tag']; ?></a>
+				<!-- <a href="###" onclick="javascript:GetSynonym();"><?php echo "收录同义标签" ?></a> -->
+				<!-- <a href="###" ><?php echo "删除标签" ?></a> -->
 <?php
 }
 ?>
@@ -141,3 +143,62 @@ if($CurUserRole >= 4){
 	</div>
 </div>
 <!-- main-sider end -->
+<!-- 话题（标签，贴咖）下添加创建帖子的区域，引用new.php -->
+
+
+<!-- main-content start -->
+
+<?php
+if($CurUserID){
+?>
+<script>
+var MaxTagNum = <?php echo $Config["MaxTagsNum"]; ?>;//最多的话题数量
+var MaxTitleChars = <?php echo $Config['MaxTitleChars']; ?>;//主题标题最多字节数
+var MaxPostChars = <?php echo $Config['MaxPostChars']; ?>;//主题内容最多字节数
+loadScript("<?php echo $Config['WebsitePath']; ?>/static/editor/ueditor.config.js?version=<?php echo $Config['Version']; ?>",function() {
+	loadScript("<?php echo $Config['WebsitePath']; ?>/static/editor/ueditor.all.min.js?version=<?php echo $Config['Version']; ?>",function(){
+		loadScript("<?php echo $Config['WebsitePath']; ?>/language/<?php echo ForumLanguage; ?>/<?php echo ForumLanguage; ?>.js?version=<?php echo $Config['Version']; ?>",function(){
+			loadScript("<?php echo $Config['WebsitePath']; ?>/static/js/new.function.js?version=<?php echo $Config['Version']; ?>",function(){
+				$("#editor").empty();
+				InitNewTopicEditor();
+				$.each(<?php echo json_encode(ArrayColumn($HotTagsArray, 'Name')); ?>,function(Offset,TagName) {
+					TagsListAppend(TagName, Offset);
+				});
+				console.log('editor loaded.');
+			});
+		});
+	});
+});
+</script>
+<div class="main-content">
+		<!-- 	下面单个div引用topic.php和new.php，做了简单更改  -->
+	<a name="reply"></a> 
+	<div class="main-box">		
+			<form name="NewForm" onkeydown="if(event.keyCode==13)return false;">
+			<input type="hidden" name="FormHash" value="<?php echo $FormHash; ?>" />
+			<input type="hidden" name="ContentHash" value="" />
+			<p><input type="text" name="Title" id="Title" value="<?php echo htmlspecialchars($Title); ?>" style="width:624px;" placeholder="<?php echo $Lang['Title']; ?>" /></p>
+			<p>
+				<div id="editor" style="width:100%;height:180px;">Loading……</div>
+				<script type="text/javascript">
+				var Content='<?php echo $Content; ?>';
+				</script>
+			</p>
+			<input type="hidden" id="existTagName" value="<?php echo $TagInfo['Name']; ?>" />
+			<!-- <p>
+							<div class="tags-list bth" style="width:624px;height:33px;" onclick="JavaScript:document.NewForm.AlternativeTag.focus();">
+								<span id="SelectTags" class="btn"></span>					
+								<input type="text" name="AlternativeTag" id="AlternativeTag" maxlength="0" value="<?php echo $TagInfo['Name']; ?>"  class="tag-input" onfocus="JavaScript:GetTags();" placeholder="<?php echo $Lang['Add_Tags']; ?>" />								
+							</div>
+						</p> -->	
+			<div class="float-right"><input type="button" value="<?php echo $Lang['Submit']; ?>(Ctrl+Enter)" name="submit" class="textbtn" id="PublishButton" onclick="JavaScript:CreateNewTopicToTag();"/></div>
+			<div class="c"></div> 
+			<p></p>
+			</form>
+	</div>
+</div>
+
+<?php
+}
+?>
+<!-- main-content end -->

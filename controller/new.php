@@ -1,5 +1,7 @@
 <?php
 require(LanguagePath . 'new.php');
+/*仅作增加一个引用的部分*/
+require(LanguagePath . 'common.php');
 Auth(1, 0, true);
 
 $ErrorCodeList = require(LibraryPath . 'code/new.error.code.php');
@@ -240,6 +242,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} while (false);
 }
 $DB->CloseConnection();
+
+//新增接收“tag”页面传来的两个参数createTopicSource、curTagNameForCreate，在new的前端页面应用
+//$name = iconv("gbk","utf-8",$name);  
+$createTopicSource = $_GET['createTopicSource'];
+//$curTagNameForCreate = $_GET['curTagNameForCreate'];
+if (!preg_match("/^[\x{4e00}-\x{9fa5}]+$/u",$_GET['curTagNameForCreate'])) {
+	$curTagNameForCreate = iconv("gb2312","utf-8",$_GET['curTagNameForCreate']); 
+}else{
+	$curTagNameForCreate = $_GET['curTagNameForCreate'];
+}
+//$curTagNameForCreate = mb_convert_encoding($_GET['curTagNameForCreate'], "gbk", "utf-8");  
+
 // 页面变量
 $PageTitle   = $Lang['Create_New_Topic'];
 $ContentFile = $TemplatePath . 'new.php';

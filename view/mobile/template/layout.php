@@ -136,10 +136,18 @@ if($CurUserID){
 							<img src="" id="Verification_Code_Img" style="cursor: pointer;" onclick="this.src+=''" style="width:33%;" align="middle" />
 							<br style="clear:both" />
 						</p>
+						<!-- 这里我调整了手机版登录和取消的显示位置，下面是原版	 -->
+						<!-- 
 						<p>
 							<a href="<?php echo $Config['WebsitePath']; ?>/register" class="button"><?php echo $Lang['Sign_Up']; ?></a>
 							<input type="submit" class="button" value="<?php echo $Lang['Log_In']; ?>" name="submit" style="float:right;" />
 						</p>
+						 -->
+						<p>
+							<a href="<?php echo $Config['WebsitePath']; ?>/register" class="button"><?php echo $Lang['Sign_Up']; ?></a>
+							<a class="button block" href="#main" data-transition="up-reveal:dismiss" id="LoginViewCancelButton" style="float:right;"></a>				
+						</p>
+						<p><input type="submit" class="button" value="<?php echo $Lang['Log_In']; ?>" name="submit" style="width:96%;" /></p>
 						<p>
 <?php
 $OauthData = json_decode($Config['CacheOauth'], true);
@@ -155,7 +163,7 @@ foreach ($OauthData as $Value) {
 }
 ?>
 						</p>
-						<p><a class="button block" href="#main" data-transition="up-reveal:dismiss" id="LoginViewCancelButton"></a></p>
+						<!-- <p><a class="button block" href="#main" data-transition="up-reveal:dismiss" id="LoginViewCancelButton"></a></p> -->
 					</div>
 				</form>
 			</div>

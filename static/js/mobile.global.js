@@ -443,6 +443,23 @@ function Search() {
 	});
 }
 
+//我加的，"进入贴咖"功能，引用上面的functions---Search
+
+function GoToTagPage(){
+	$.afui.popup({
+		title: "请输入贴咖名",
+		message: '<input type="text" id="SearchInput" />',
+		cancelText: Lang['Cancel'],
+		cancelCallback: function() {
+		},
+		doneText: Lang['Confirm'],
+		doneCallback: function() {
+			var tagName = $("#SearchInput").val();
+			window.open("/tag/"+tagName,"_self");
+		},
+		cancelOnly: false
+	});
+}
 
 //可以去除tab的trim
 function trim3(str) {

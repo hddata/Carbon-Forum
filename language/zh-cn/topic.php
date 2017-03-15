@@ -22,7 +22,8 @@ $Lang = array_merge($Lang, array(
 	'Reply' => ' 回 复 ',
 	'Requirements_For_Login' => '登录后方可回帖',
 	'Topic_Has_Been_Locked' => '此帖已被锁定，禁止回复',
-	'Add_Tags' => '添加话题(按Enter添加)',
+	//'Add_Tags' => '添加话题(按Enter添加)',
+	'Add_Tags' => '点击，并选择贴咖发布',	
 	'Edit_Tags' => '编辑话题',
 	'Complete_Edit_Tags' => '完成'
 	));
