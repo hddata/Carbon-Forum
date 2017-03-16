@@ -81,7 +81,7 @@ $HotTagsArray = $HotTagsArray ? $HotTagsArray : array();
 
 $CurrentUserID             = intval(GetCookie('UserID'));
 //echo "string:***************".$Prefix;
-$Favoritesresult            = $DB->column("select title from `" . $Prefix . "favorites` where Type = 2 AND UserId = " . $CurrentUserID );
+$Favoritesresult            = $DB->column("select title from `" . PREFIX . "favorites` where Type = 2 AND UserId = " . $CurrentUserID );
 //echo "string:".$Favoritesresult;
 
 
