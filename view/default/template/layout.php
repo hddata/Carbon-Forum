@@ -52,7 +52,9 @@ if ( IsSSL() ) {
 	/*我加的，跳转到标签页*/
 	function forwardToTagsPage(){
 		var tagName = $("#SearchInput").val();
-		window.open("/tag/"+tagName,"_self");
+		if (tagName!="") {
+			window.open("/tag/"+tagName,"_self");
+		};
 	}
 	</script>
 	<script type="text/javascript" charset="utf-8" src="<?php echo $Config['LoadJqueryUrl']; ?>"></script>
