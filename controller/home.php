@@ -3,6 +3,8 @@ require(LanguagePath . 'home.php');
 require(LanguagePath . 'favorite_tags.php');
 $Page      = intval(Request('Request', 'page'));
 $TotalPage = ceil($Config['NumTopics'] / $Config['TopicsPerPage']);
+$TimeStamp = $_SERVER['REQUEST_TIME'];
+
 if (($Page < 0 || $Page == 1) && !$IsApp) 
 	Redirect();
 if ($Page > $TotalPage) 
@@ -40,12 +42,12 @@ if (!$TopicsArray) {
 */
 //增加判断，如果用户未登录看到所有帖子，如果用户登录，看到关注的贴咖下的帖子
 if(!$CurUserID && $UrlPath != 'login' && $UrlPath != 'register' && $UrlPath != 'oauth'){
-	//展示所有帖子
+	//展示所有帖子，同时不在首页显示置顶贴
 	if (!$TopicsArray) {
 	if ($Page <= 10) {
 		$TopicsArray = $DB->query('SELECT `ID`, `Topic`, `Tags`, `UserID`, `UserName`, `LastName`, `LastTime`, `Replies` 
 			FROM ' . PREFIX . 'topics force index(LastTime) 
-			WHERE IsDel=0 
+			WHERE IsDel=0 and LastTime<='. $_SERVER['REQUEST_TIME'] .'
 			ORDER BY LastTime DESC 
 			LIMIT ' . ($Page - 1) * $Config['TopicsPerPage'] . ',' . $Config['TopicsPerPage']);
 		if ($MCache && $Page == 1) {
@@ -59,13 +61,13 @@ if(!$CurUserID && $UrlPath != 'login' && $UrlPath != 'register' && $UrlPath != '
 					WHERE IsDel=0 
 					ORDER BY LastTime DESC 
 					LIMIT ' . ($Page - 1) * $Config['TopicsPerPage'] . ', 1) 
-				and IsDel=0 
+				and IsDel=0 and LastTime<='. $_SERVER['REQUEST_TIME'] .'
 			ORDER BY LastTime DESC 
 			LIMIT ' . $Config['TopicsPerPage']);
 			}
 	}
 } else{
-	//展示关注的贴咖下的帖子
+	//展示关注的贴咖下的帖子，同时不在首页显示置顶贴
 	$Page = Request('Get', 'page');
 	if ($Page < 0 || $Page == 1) 
 	Redirect('tags/following');
@@ -95,7 +97,7 @@ if(!$CurUserID && $UrlPath != 'login' && $UrlPath != 'register' && $UrlPath != '
 	if ($TopicIDArray)
 		$TopicsArray = $DB->query('SELECT `ID`, `Topic`, `Tags`, `UserID`, `UserName`, `LastName`, `LastTime`, `Replies` 
             FROM ' . PREFIX . 'topics force index(PRI) 
-            WHERE ID in (?) and IsDel=0 
+            WHERE ID in (?) and IsDel=0 and LastTime<='. $_SERVER['REQUEST_TIME'] .'
             ORDER BY LastTime DESC',
         	$TopicIDArray);
 }

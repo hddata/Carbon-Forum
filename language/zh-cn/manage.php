@@ -11,8 +11,10 @@ $Lang = array_merge($Lang, array(
 	'Permanently_Deleted' => '成功永久删除',
 	'Failure_Permanent_Deletion' => '请确认帖子在回收站',
 
-	'Sunk' => '下沉成功',
-	'Risen' => '上浮成功',
+	//'Sunk' => '下沉成功',
+	//'Risen' => '上浮成功',
+	'Sunk' => '咖内下沉成功',
+	'Risen' => '咖内上浮成功',
 
 	'Lock' => '锁定',
 	'Unlock' => '解锁',
