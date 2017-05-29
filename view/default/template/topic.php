@@ -147,7 +147,8 @@ foreach($PostsArray as $key => $Post)
 				</div>
 				<div id="edit<?php echo $Post['ID']; ?>" style="width:588px;height:auto;" class="hide"></div>
 			</div>
-			<!-- 楼中楼 -->
+			<!-- 为楼中楼准备 -->
+			<!--
 <div class="main-subbox home-subbox-list">
 
 			<div class="comment-button">
@@ -177,6 +178,7 @@ foreach($PostsArray as $key => $Post)
 				</div>					
 			</div>
 </div>
+			-->
 			<?php if($CurUserID){ ?>
 			<div class="comment-button">
 				<div class="float-left">
