@@ -24,6 +24,8 @@ $Lang = array_merge($Lang, array(
 	'Topics_Number' => '主题数量',
 	'Posts_Number' => '回帖数量',
 	'Tags_Number' => '话题数量',
-	'Users_Number' => '用户数量'
+	'Users_Number' => '用户数量',
+	'Submit' => ' 发 布 ',
+	'SubmitNewtopic' => ' 发 贴 '
 	
 	));

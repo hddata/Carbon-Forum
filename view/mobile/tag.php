@@ -7,6 +7,8 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 if($CurUserID){
 ?>
 <a href="#" class="button block" onclick="javascript:Manage(<?php echo $TagInfo['ID']; ?>, 4, 2, false, this);"><?php echo $IsFavorite?$Lang['Unfollow']:$Lang['Follow']; ?></a>
+<!-- 增加发帖按钮，同时传出参数createTopicSource和curTagNameForCreate到new页面，让后台new.php接收  -->
+<a href="<?php echo $Config['WebsitePath']; ?>/new?createTopicSource=true&curTagNameForCreate=<?php echo $TagInfo['Name']; ?>" class="button block" onclick><?php echo $Lang['SubmitNewtopic']; ?></a>
 <?php
 }
 echo $TagInfo['Description'];

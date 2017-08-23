@@ -18,8 +18,10 @@ var Lang = {
 	"Submit_Success": " 发表成功 ",
 	"Submit_Failure": "发表失败，请再次提交！",
 	"Submit_Again": " 再次提交 ",
-	"Tags_Too_Much": "最多只能插入{{MaxTagNum}}个话题！",
-	"Add_Tags": "添加话题(按Enter添加)",
+	//'Tags_Too_Much':'最多只能插入{{MaxTagNum}}个话题！',
+	'Tags_Too_Much':'最多只能选中{{MaxTagNum}}个贴咖！',
+	//'Add_Tags':'添加话题(按Enter添加)',
+	'Add_Tags':'点击，并选择贴咖发布',
 
 	"Edit": " 提 交 ",
 	"Cancel": " 取 消 ",

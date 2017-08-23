@@ -76,6 +76,68 @@ function CreateNewTopic() {
 	return true;
 }
 
+//指定话题（标签）下，发帖子
+function CreateNewTopicToTag() {
+	if (!document.NewForm.Title.value.length) {
+		CarbonAlert(Lang['Title_Can_Not_Be_Empty']);
+		document.NewForm.Title.focus();
+		return false;
+	} else if (document.NewForm.Title.value.replace(/[^\x00-\xff]/g, "***").length > MaxTitleChars) {
+		CarbonAlert(Lang['Title_Too_Long'].replace("{{MaxTitleChars}}", MaxTitleChars).replace("{{Current_Title_Length}}", document.NewForm.Title.value.replace(/[^\x00-\xff]/g, "***").length));
+		document.NewForm.Title.focus();
+		return false;
+	} else {
+		//alert($("#existTagName").val());
+		var existTag = [];
+		existTag[0] = $("#existTagName").val();
+
+		$("#PublishButton").val(Lang['Submitting']);
+		
+		var MarkdownConverter = new showdown.Converter(),
+		Content = MarkdownConverter.makeHtml($("#Content").val());
+		$.ajax({
+			url: WebsitePath + '/new',
+			data: {
+				FormHash: document.NewForm.FormHash.value,
+				Title: document.NewForm.Title.value,
+				Content: Content,
+				Tag: existTag
+			},
+			type: 'post',
+			dataType: 'json',
+			success: function(data) {
+				//TODO: 隐藏Toast
+				if (data.Status == 1) {
+					$("#PublishButton").val(Lang['Submit_Success']);
+/*					$.afui.loadContent(
+						WebsitePath + "/t/" + data.TopicID, 
+						false, 
+						false, 
+						"slide",
+						document.getElementById('mainview')
+					);*/
+					$.afui.loadContent(
+						WebsitePath + "/tag/" + existTag, 
+						false, 
+						false, 
+						"slide",
+						document.getElementById('mainview')
+					);
+					//window.location.href=(WebsitePath + "/tag/" + existTag);
+					location.href = WebsitePath + "/tag/" + existTag;
+				} else {
+					CarbonAlert(data.ErrorMessage);
+				}
+			},
+			error: function() {
+				CarbonAlert(Lang['Submit_Failure']);
+				$("#PublishButton").val(Lang['Submit_Again']);
+			}
+		});
+	}
+	return true;
+}
+
 function CheckTag(TagName, IsAdd) {
 	TagName = $.trim(TagName);
 	var show = true;
@@ -99,6 +161,28 @@ function CheckTag(TagName, IsAdd) {
 }
 
 function GetTags() {
+
+				$.ajax({
+				url: WebsitePath + '/json/list_tags',
+				data: {
+					userid: 2,
+				},
+				type: 'post',
+				dataType: 'json',
+				success: function(data) {
+						var lists = data
+						$("#TagsList").html('');
+						for (var i = 0; i < lists.length; i++) {
+							if (CheckTag(lists[i], 0)) {
+								TagsListAppend(lists[i], i);
+							}
+						}
+						//$("#TagsList").append('<div class="c"></div>');
+				}
+				
+			});
+/*上面gettags函数内的内容，是我加的。下面的为原版*/
+/*
 	var CurrentContentHash = md5(document.NewForm.Title.value + document.NewForm.Content.value);
 	//取Title与Content 联合Hash值，与之前input的内容比较，不同则开始获取话题，随后保存进hidden input。
 	if (CurrentContentHash != document.NewForm.ContentHash.value) {
@@ -125,6 +209,7 @@ function GetTags() {
 		}
 		document.NewForm.ContentHash.value = CurrentContentHash;
 	}
+*/
 }
 
 function TagsListAppend(TagName, id) {

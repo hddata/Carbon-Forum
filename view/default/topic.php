@@ -192,6 +192,38 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 							<div id="edit<?php echo $Post['ID']; ?>" style="width:588px;height:auto;"
 								 class="hide"></div>
 						</div>
+			<!-- 为楼中楼准备 -->
+			<!--
+<div class="main-subbox home-subbox-list">
+
+			<div class="comment-button">
+				<a name="Post<?php echo $Post['ID'];?>"></a>
+				<div class="subcomment-avatar">
+					<p>
+					<a href="<?php echo $Config['WebsitePath'].'/u/'.urlencode($Post['UserName']); ?>">
+					<?php echo GetAvatar($Post['UserID'], $Post['UserName'], 'middle'); ?>
+					</a>
+					</p>
+				</div>
+				<div class="comment-content">
+					<div>
+						<div class="float-left text-bold fs14"><p><a href="<?php echo $Config['WebsitePath'].'/u/'.urlencode($Post['UserName']); ?>"><?php echo $Post['UserName'];?>:&nbsp; </a></p></div>
+						<div class="float-left fs14" id="p<?php echo $Post['ID']; ?>">
+							<?php echo $Post['Content']; ?>
+						</div>
+						<span class="float-right grey fs12">
+							<p>
+							<?php echo FormatTime($Post['PostTime']); ?>&nbsp;&nbsp;
+							<a href="#Post<?php echo $Post['ID']; ?>"></a>
+							</p>
+						</span>
+					</div>
+					<div class="c"></div>
+					<div id="edit<?php echo $Post['ID']; ?>" style="width:588px;height:auto;" class="hide"></div>
+				</div>					
+			</div>
+</div>
+			-->
 						<?php if ($CurUserID) { ?>
 							<div class="comment-button">
 								<div class="float-left">

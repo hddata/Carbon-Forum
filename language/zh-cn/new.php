@@ -5,7 +5,8 @@ if (empty($Lang) || !is_array($Lang))
 
 $Lang = array_merge($Lang, array(
 	'Title' => '标题',
-	'Add_Tags' => '添加话题(按Enter添加)',
+//	'Add_Tags' => '添加话题(按Enter添加)',
+	'Add_Tags' => '点击，并选择贴咖发布',
 	'Submit' => ' 发 布 ',
 	'Prohibited_New_Topic' => '管理员禁止普通用户发布新主题',
 	'Posting_Too_Often' => '您发帖过于频繁，请稍后再尝试',
@@ -15,5 +16,7 @@ $Lang = array_merge($Lang, array(
 	'Title_Empty' => '标题不能为空',
 
 	'Tags' => '标签',
-	'Content' => '内容'
+	'Content' => '内容',
+	'CreateOneTag' => '发布咖',
+	'CreateTagContent' => '创造属于你的贴咖'
 	));

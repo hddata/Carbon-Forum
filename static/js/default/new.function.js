@@ -237,6 +237,74 @@ function CreateNewTopic() {
 	return true;
 }
 
+//指定话题（标签）下，发帖子
+function CreateNewTopicToTag() {
+	if (!document.NewForm.Title.value.length) {
+		alert(Lang['Title_Can_Not_Be_Empty']);
+		document.NewForm.Title.focus();
+		return false;
+	} else if (document.NewForm.Title.value.replace(/[^\x00-\xff]/g, "***").length > MaxTitleChars) {
+		alert(Lang['Title_Too_Long'].replace("{{MaxTitleChars}}", MaxTitleChars).replace("{{Current_Title_Length}}", document.NewForm.Title.value.replace(/[^\x00-\xff]/g, "***").length));
+		document.NewForm.Title.focus();
+		return false;
+/*	} else if (!$("#SelectTags").html()) {
+		if ($("#AlternativeTag").val().length != 0) {
+			AddTag($("#AlternativeTag").val(), Math.round(new Date().getTime() / 1000));
+		}else{
+			alert(Lang['Tags_Empty']);
+			document.NewForm.AlternativeTag.focus();
+			return false;
+		}*/
+	} else {
+		//alert($("#existTagName").val());
+		var existTag = [];
+		existTag[0] = $("#existTagName").val();
+
+		$("#PublishButton").val(Lang['Submitting']);
+		UE.getEditor('editor').setDisabled('fullscreen');
+		$.ajax({
+			url: WebsitePath + '/new',
+			data: {
+				FormHash: document.NewForm.FormHash.value,
+				Title: document.NewForm.Title.value,
+				Content: UE.getEditor('editor').getContent(),
+				Tag: existTag
+			},
+			type: 'post',
+			cache: false,
+			dataType: 'json',
+			async: true,
+			success: function(data) {
+				if (data.Status == 1) {
+					$("#PublishButton").val(Lang['Submit_Success']);
+/*					$.pjax({
+						url: WebsitePath + "/t/" + data.TopicID, 
+						container: '#main'
+					});*/
+					$.pjax({
+						url: WebsitePath + "/tag/" + existTag, 
+						container: '#main'
+					});
+					//location.href = WebsitePath + "/t/" + data.TopicID;
+					if (window.localStorage) {
+						//清空草稿箱
+						StopTopicAutoSave();
+					}
+				} else {
+					alert(data.ErrorMessage);
+					UE.getEditor('editor').setEnabled();
+				}
+			},
+			error: function() {
+				alert(Lang['Submit_Failure']);
+				UE.getEditor('editor').setEnabled();
+				$("#PublishButton").val(Lang['Submit_Again']);
+			}
+		});
+	}
+	return true;
+}
+
 function CheckTag(TagName, IsAdd) {
 	TagName = $.trim(TagName);
 	var show = true;
@@ -260,6 +328,27 @@ function CheckTag(TagName, IsAdd) {
 }
 
 function GetTags() {
+
+			$.ajax({
+				url: WebsitePath + '/json/list_tags',
+				data: {
+					userid: 2,
+				},
+				type: 'post',
+				dataType: 'json',
+				success: function(data) {
+						var lists = data
+						$("#TagsList").html('');
+						for (var i = 0; i < lists.length; i++) {
+							if (CheckTag(lists[i], 0)) {
+								TagsListAppend(lists[i], i);
+							}
+						}
+						//$("#TagsList").append('<div class="c"></div>');
+				}
+				
+			});
+/*
 	var CurrentContentHash = md5(document.NewForm.Title.value + UE.getEditor('editor').getContentTxt());
 	//取Title与Content 联合Hash值，与之前input的内容比较，不同则开始获取话题，随后保存进hidden input。
 	if (CurrentContentHash !== document.NewForm.ContentHash.value) {
@@ -287,6 +376,28 @@ function GetTags() {
 		}
 		document.NewForm.ContentHash.value = CurrentContentHash;
 	}
+*/
+}
+
+function CreateTags(){
+		
+
+			var tagName = $("#CreateTagContent").val();
+					
+			
+			$.ajax({
+				url: WebsitePath + '/json/create_tags',
+				data: {
+					Tag: $("#CreateTagContent").map(function() {
+						return $(this).val();
+					}).get()
+				},
+				type: 'post',
+				dataType: 'json',
+				success: function(data) {
+					window.open("/tag/"+tagName,"_self");
+				}
+			});
 }
 
 function TagsListAppend(TagName, id) {

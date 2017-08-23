@@ -82,7 +82,9 @@ foreach ($OauthData as $Value) {
 </div>
 <?php
 }
-if($HotTagsArray) {
+//原版，新版判断是否sider位于home.php部页面，是的话，隐藏下面“贴咖广场”，增加代码$hideHottag!='hideHottag' && 
+//if($HotTagsArray) {
+if($hideHottag!='hideHottag' && $HotTagsArray) {
 ?>
 <div class="sider-box">
 	<div class="sider-box-title">

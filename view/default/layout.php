@@ -120,6 +120,13 @@ if(!$IsAjax){
 	<script type="text/javascript">
 		var Prefix = "<?php echo PREFIX; ?>";
 		var WebsitePath = "<?php echo $Config['WebsitePath'];?>";
+		/*我加的，跳转到标签页*/
+		function forwardToTagsPage(){
+			var tagName = $("#SearchInput").val();
+			if (tagName!="") {
+				window.open("/tag/"+tagName,"_self");
+			};
+		}
 	</script>
 	<script type="text/javascript" charset="utf-8" src="<?php echo $Config['LoadJqueryUrl']; ?>"></script>
 	<script type="text/javascript" charset="utf-8"
@@ -135,10 +142,23 @@ if(!$IsAjax){
 	<?php echo $Config['PageHeadContent']; ?>
 </head>
 <body>
+<!-- GA统计用的 -->
+<?php include_once("analyticstracking.php") ?>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-73021157-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 <!-- content wrapper start -->
 <div class="wrapper">
 	<div class="nav-bar">
 		<div class="nav-panel">
+			<!-- style="position: fixed;"设置标题栏绝对位置与main中margin-top:60px;共同作用 -->
 			<div class="inner-nav-panel">
 				<div class="logo">
 					<a href="<?php echo $Config['WebsitePath']; ?>/">
@@ -147,6 +167,8 @@ if(!$IsAjax){
 					</a>
 				</div>
 				<div class="buttons">
+					<!-- 原版，更改目标-增加进入话题按钮，并且修改回车键的功能为进入话题 -->
+					<!-- 				
 					<div class="searchbox">
 						<input type="text" id="SearchInput"
 							   onkeydown="javascript:if((event.keyCode==13)&&(this.value!='')){$('#SearchButton').trigger('click');}"
@@ -155,6 +177,22 @@ if(!$IsAjax){
 							<div class="icon icon-search"></div>
 						</a>
 					</div>
+					-->
+					<!--enterbox留着用-->
+					<div class="enterbox">
+					</div>		
+					<div class="searchbox">
+						<input type="text" id="SearchInput" 
+								onkeydown="javascript:if((event.keyCode==13)&&(this.value!='')){forwardToTagsPage();}" 
+								placeholder="<?php echo $Lang['Search']; ?>"<?php echo $UrlPath=='search'&&!empty($Keyword)?' value="'.$Keyword.'"':'';?> />
+						<a href="###" id="SearchButton">
+							<div class="icon icon-search"></div>
+						</a>
+						<a href="###" id="SearchTags" onclick="forwardToTagsPage()">
+							<div class="icon icon-totags"></div>
+						</a>
+					</div>
+
 					<?php
 					if ($CurUserID) {
 						?>
@@ -179,6 +217,12 @@ if(!$IsAjax){
 						?>
 						<!-- <a href="<?php echo $Config['WebsitePath']; ?>/users/following"<?php echo $UrlPath == 'favorite_users' ? ' class="buttons-active"' : ''; ?>><?php echo $Lang['Users_Followed']; ?></a>
 					<a href="<?php echo $Config['WebsitePath']; ?>/tags/following"<?php echo $UrlPath == 'favorite_tags' ? ' class="buttons-active"' : ''; ?>><?php echo $Lang['Tags_Followed']; ?></a> -->
+						<a href="<?php echo $Config['WebsitePath']; ?>/users/following"<?php echo $UrlPath=='favorite_users'?' class="buttons-active"':''; ?>><?php echo $Lang['Users_Followed']; ?></a>
+						<!--首页-->
+						<a href="<?php echo $Config['WebsitePath']; ?>/"<?php echo $UrlPath=='index'?' class="buttons-active"':''; ?>>
+							<?php echo $Lang['Home']; ?>				
+						</a>				
+						<!--发新帖-->
 						<a href="<?php echo $Config['WebsitePath']; ?>/new"<?php echo $UrlPath == 'new' ? ' class="buttons-active"' : ''; ?>><?php echo $Lang['Create_New_Topic']; ?></a>
 						<?php
 					} else {
@@ -189,13 +233,20 @@ if(!$IsAjax){
 						<a href="<?php echo $Config['WebsitePath']; ?>/login"<?php echo $UrlPath == 'login' ? ' class="buttons-active"' : ''; ?>>
 							<?php echo $Lang['Log_In']; ?>
 						</a>
+						<!--首页-->
+						<a href="<?php echo $Config['WebsitePath']; ?>/"<?php echo $UrlPath=='index'?' class="buttons-active"':''; ?>>
+							<?php echo $Lang['Home']; ?>
+						</a>
 						<?php
 					}
 					?>
 					<!--a href="<?php echo $Config['WebsitePath']; ?>/explore"<?php echo $UrlPath == 'explore' ? ' class="buttons-active"' : ''; ?>>发现</a-->
+					<!--首页-->
+					<!--原版，现在迁移到条件语句中,并且更改					
 					<a href="<?php echo $Config['WebsitePath']; ?>/"<?php echo $UrlPath == 'home' ? ' class="buttons-active"' : ''; ?>>
 						<?php echo $Lang['Home']; ?>
 					</a>
+					-->
 				</div>
 				<div class="c"></div>
 			</div>
@@ -243,8 +294,7 @@ if(!$IsAjax){
 	<!-- footer start -->
 	<div class="copyright">
 		<p>
-			<?php echo $Config['SiteName']; ?> Powered By © 2006-2016 <a href="http://www.94cb.com" target="_blank">Carbon
-				Forum</a> V<?php echo CARBON_FORUM_VERSION; ?>
+			<?php echo $Config['SiteName']; ?> Powered By © 2006-2026 <a href="http://www.tiekaa.com" target="_blank">TIEKAA</a> V
 			<a href="<?php echo $Config['WebsitePath']; ?>/statistics"><?php echo $Lang['Statistics']; ?></a>
 			<br/>
 			<?php
@@ -253,7 +303,7 @@ if(!$IsAjax){
 			?>
 			Processed in <?php echo $TotalTime; ?> ms,
 			<?php echo $DB->querycount; ?> SQL Query(s),
-			<?php echo FormatBytes(memory_get_usage(false)); ?> Memory Usage
+			<?php echo FormatBytes(memory_get_usage(false)); ?> Memory Usage 浙ICP备15030112号-1
 		</p>
 	</div>
 	<!-- footer end -->
