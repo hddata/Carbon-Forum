@@ -371,7 +371,7 @@ h2.resp-accordion {
 /* searchbox */
 .buttons .searchbox{
 	float: left;
-	width: 360px;
+	width: 410px;
 	margin: 0 4px;
 }
 .buttons .searchbox input{
@@ -1028,32 +1028,32 @@ img .avatar {
 	border-radius: 50%;
 }
 .icon-search {
-	background-position: -2px -170px;
+	background-position: -2px -154px;
 }
 .icon-settings {
-	background-position: -2px -198px;
+	background-position: -2px -180px;
 }
 .icon-notifications {
-	background-position: -2px -114px;
+	background-position: -2px -103px;
 }
 .icon-dashboard {
-	background-position: -2px -2px;
+	background-position: -2px -1px;
 }
 .icon-edit {
-	background-position: -2px -86px;
+	background-position: -2px -78px;
 }
 .icon-quote {
-	background-position: -2px -58px;
+	background-position: -2px -51px;
 }
 .icon-delete {
-	background-position: -2px -30px;
+	background-position: -2px -27px;
 }
 .icon-reply {
-	background-position: -2px -142px;
+	background-position: -2px -128px;
 }
 /* 我加的 */
 .icon-totags {
-	background-position: -2px -314px;
+	background-position: -2px -282px;
 }
 
 #go-to-top {
