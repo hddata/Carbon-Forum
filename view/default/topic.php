@@ -53,6 +53,7 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 						}
 						?>
 					</div>
+					<!-- 阶段性停用编辑标签的功能
 					<?php
 					if ($CurUserRole >= 4 || $Topic['UserID'] == $CurUserID) { ?>
 						<a href="###" class="edittag" onclick="javascript:EditTags();">
@@ -60,7 +61,9 @@ if (!defined('InternalAccess')) exit('error: 403 Access Denied');
 						</a>
 						<?php
 					}
-					?></div>
+					?>
+					-->
+					</div>
 
 				<div id="EditTags" style="display:none;">
 					<div id="EditTagsElements">

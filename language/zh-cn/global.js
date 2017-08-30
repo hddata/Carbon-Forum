@@ -22,6 +22,7 @@ var Lang = {
 	'Tags_Too_Much':'最多只能选中{{MaxTagNum}}个贴咖！',
 	//'Add_Tags':'添加话题(按Enter添加)',
 	'Add_Tags':'点击，并选择贴咖发布',
+	"Prohibited_New_Topic": "管理员禁止普通用户发布新主题！",
 
 	"Edit": " 提 交 ",
 	"Cancel": " 取 消 ",

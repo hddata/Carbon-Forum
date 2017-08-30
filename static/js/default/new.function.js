@@ -396,6 +396,9 @@ function CreateTags(){
 				dataType: 'json',
 				success: function(data) {
 					window.open("/tag/"+tagName,"_self");
+				},
+				error: function () {
+					alert(Lang['Prohibited_New_Topic']);
 				}
 			});
 }
